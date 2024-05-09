@@ -27,6 +27,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,9 +37,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun SignupScreen(navController: NavController){
+
+    var name = remember {
+        mutableStateOf("")
+    }
+    var email = remember {
+        mutableStateOf("")
+    }
+    var password = remember {
+        mutableStateOf("")
+    }
+    var confirmPassword = remember {
+        mutableStateOf("")
+    }
+    var isOverEightteen = remember {
+        mutableStateOf(false)
+    }
 
     Surface (
         modifier = Modifier
@@ -117,8 +136,10 @@ fun SignupScreen(navController: NavController){
             ) {
 
                 OutlinedTextField(
-                    value = "Kainan Braga",
-                    onValueChange = {},
+                    value = name.value,
+                    onValueChange = {
+                                    name.value = it
+                    },
                     label = {
                         Text(text = "Username", color = Color(0xff000000))
                     },
@@ -132,8 +153,10 @@ fun SignupScreen(navController: NavController){
                 )
 
                 OutlinedTextField(
-                    value = "kainan.braga@gmail.com",
-                    onValueChange = {},
+                    value = email.value,
+                    onValueChange = {
+                                    email.value = it
+                    },
                     label = {
                         Text(text = "Email", color = Color(0xff000000))
                     },
@@ -148,8 +171,10 @@ fun SignupScreen(navController: NavController){
                 )
 
                 OutlinedTextField(
-                    value = "shiu123",
-                    onValueChange = {},
+                    value = password.value,
+                    onValueChange = {
+                                    password.value = it
+                    },
                     label = {
                         Text(text = "Password", color = Color(0xff000000))
                     },
@@ -164,8 +189,10 @@ fun SignupScreen(navController: NavController){
                 )
 
                 OutlinedTextField(
-                    value = "shiu123",
-                    onValueChange = {},
+                    value = confirmPassword.value,
+                    onValueChange = {
+                                    confirmPassword.value = it
+                    },
                     label = {
                         Text(text = "Confirm Password", color = Color(0xff000000))
                     },
@@ -187,8 +214,10 @@ fun SignupScreen(navController: NavController){
                     .padding(top = 5.dp)
             ) {
                 Checkbox(
-                    checked = true,
-                    onCheckedChange = {},
+                    checked = isOverEightteen.value,
+                    onCheckedChange = {
+                                      isOverEightteen.value = it
+                    },
                     colors = CheckboxDefaults.colors(
                         checkedColor = Color(0xff7d8cc4),
                         uncheckedColor = Color(0xff7d8cc4),
@@ -266,4 +295,5 @@ fun SignupScreen(navController: NavController){
 @Preview (showSystemUi = true)
 @Composable
 fun SignupScreenPreview() {
+    SignupScreen(navController = rememberNavController())
 }
