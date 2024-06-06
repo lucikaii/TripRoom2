@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TRIP-ROOM</string>
+    <string name="login">Login</string>
+    <string name="login_message">Por favor, logue para continuar</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="login_button">Entrar</string>
+    <string name="login_change_to_signup">Não possui uma conta?</string>
+    <string name="signup">Cadastar</string>
+    <string name="signup_message">Criar uma conta</string>
+    <string name="username">Nome de Usuário</string>
+    <string name="confirm_password">Confirmar senha</string>
+    <string name="signup_change_to_login">Já possui uma conta?</string>
+    <string name="over_age">Mais de 18 anos?</string>
+    <string name="create_account">CRIAR CONTA</string>
+</resources>

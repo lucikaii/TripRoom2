@@ -32,16 +32,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import br.senai.sp.jandira.trip_room.R
+import br.senai.sp.jandira.trip_room.model.Users
+import br.senai.sp.jandira.trip_room.repository.UserRepository
 
 @Composable
 fun SignupScreen(navController: NavController){
 
+    val ur = UserRepository(LocalContext.current)
     var name = remember {
         mutableStateOf("")
     }
@@ -56,6 +62,9 @@ fun SignupScreen(navController: NavController){
     }
     var isOverEightteen = remember {
         mutableStateOf(false)
+    }
+    var errorMessage = remember {
+        mutableStateOf("")
     }
 
     Surface (
@@ -91,13 +100,13 @@ fun SignupScreen(navController: NavController){
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Sign Up",
+                    text = stringResource(id = R.string.signup),
                     color = Color(0xff7d8cc4),
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Create a new account",
+                    text = stringResource(id = R.string.signup_message),
                     color = Color(0xffA09C9C),
                     fontSize = 14.sp
                 )
@@ -141,7 +150,7 @@ fun SignupScreen(navController: NavController){
                                     name.value = it
                     },
                     label = {
-                        Text(text = "Username", color = Color(0xff000000))
+                        Text(text = stringResource(id = R.string.username), color = Color(0xff000000))
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -158,7 +167,7 @@ fun SignupScreen(navController: NavController){
                                     email.value = it
                     },
                     label = {
-                        Text(text = "Email", color = Color(0xff000000))
+                        Text(text = stringResource(id = R.string.email), color = Color(0xff000000))
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -176,7 +185,7 @@ fun SignupScreen(navController: NavController){
                                     password.value = it
                     },
                     label = {
-                        Text(text = "Password", color = Color(0xff000000))
+                        Text(text = stringResource(id = R.string.password), color = Color(0xff000000))
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -194,7 +203,7 @@ fun SignupScreen(navController: NavController){
                                     confirmPassword.value = it
                     },
                     label = {
-                        Text(text = "Confirm Password", color = Color(0xff000000))
+                        Text(text = stringResource(id = R.string.confirm_password), color = Color(0xff000000))
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -205,6 +214,7 @@ fun SignupScreen(navController: NavController){
                         focusedBorderColor = Color(0xff7d8cc4)
                     )
                 )
+                Text(text = errorMessage.value, color = Color.Red)
             }
 
             Row(
@@ -224,7 +234,7 @@ fun SignupScreen(navController: NavController){
                         checkmarkColor = Color(0xffffffff)
                     )
                 )
-                Text(text = "Over 18?")
+                Text(text = stringResource(id = R.string.over_age))
             }
 
             Row(
@@ -233,7 +243,27 @@ fun SignupScreen(navController: NavController){
                     .padding(start = 16.dp, end = 16.dp, top = 15.dp)
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+
+                        if (isOverEightteen.value === true){
+
+                            if (confirmPassword.value == password.value){
+
+                                val user = Users(
+                                    name = name.value,
+                                    email = email.value,
+                                    password = password.value
+                                )
+
+                                ur.save(user)
+                            } else{
+                                errorMessage.value = "As senhas devem ser iguais"
+                            }
+                        } else{
+                            errorMessage.value = "Não tem idade suficiente para se cadastrar"
+                        }
+
+                    },
                     modifier = Modifier
                         .height(50.dp)
                         .fillMaxWidth(),
@@ -242,7 +272,7 @@ fun SignupScreen(navController: NavController){
                         containerColor = Color(0xff7d8cc4)
                     )
                 ) {
-                    Text(text = "CREATE ACCOUNT")
+                    Text(text = stringResource(id = R.string.create_account))
                 }
             }
 
@@ -253,12 +283,12 @@ fun SignupScreen(navController: NavController){
                 horizontalArrangement = Arrangement.End
             ) {
                 Text(
-                    text = "Already have an account?",
+                    text = stringResource(id = R.string.signup_change_to_login),
                     fontSize = 12.sp,
                     color = Color(0xffA09C9C)
                 )
                 Text(
-                    text = "Sign in",
+                    text = stringResource(id = R.string.login),
                     fontSize = 12.sp,
                     color = Color(0xff7d8cc4),
                     fontWeight = FontWeight.Bold

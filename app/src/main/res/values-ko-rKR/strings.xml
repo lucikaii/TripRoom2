@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TRIP-ROOM</string>
+    <string name="login">로그인</string>
+    <string name="login_message">계속하기 로그인해주세요</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="login_button">로그인</string>
+    <string name="login_change_to_signup">계정을 가지지 않아요?</string>
+    <string name="signup">사인업</string>
+    <string name="signup_message">계정을 만들기</string>
+    <string name="username">사용자이름</string>
+    <string name="confirm_password">Confirmar senha</string>
+    <string name="signup_change_to_login">Já possui uma conta?</string>
+    <string name="over_age">Mais de 18 anos?</string>
+    <string name="create_account">계정만들기</string>
+</resources>
